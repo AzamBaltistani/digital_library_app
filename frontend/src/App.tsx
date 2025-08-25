@@ -1,34 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { BrowserRouter, Route, Routes } from 'react-router'
 import './App.css'
+import AuthLayout from './layout/auth_layout/AuthLayout'
+import About from './pages/About/Index'
+import Login from './pages/Auth/Login/Login'
+import Register from './pages/Auth/Register/Register'
+import Home from './pages/Home/Home'
+import Navbar from './layout/navbar/Index'
+import Dashboard from './pages/Dashboard'
+import Explore from './pages/Explore/Index'
+import ExploreBooks from './pages/Explore/Books/ExploreBooks'
+import ExploreAll from './pages/Explore/All/ExploreAll'
+import ExploreArticles from './pages/Explore/Articles/ExploreArticles'
+import ExploreResearchPapers from './pages/Explore/ResearchPapers/ExploreResearchPaper'
+import ExploreThesis from './pages/Explore/Thesis/ExploreThesis'
+import ExploreBlogs from './pages/Explore/Blogs/ExploreBlogs'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route index path='/' element={<Home />} />
+        <Route path='/explore' element={<Explore />}>
+          <Route index path='/explore/' element={<ExploreAll />} />
+          <Route path='books' element={<ExploreBooks />} />
+          <Route path='articles' element={<ExploreArticles />} />
+          <Route path='blogs' element={<ExploreBlogs />} />
+          <Route path='research-papers' element={<ExploreResearchPapers />} />
+          <Route path='thesis' element={<ExploreThesis />} />
+        </Route>
+        <Route path="about" element={<About />} />
+
+        <Route element={<AuthLayout />}>
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+        </Route>
+
+        <Route path='dashboard' element={<Dashboard />} />
+      </Routes>
+    </BrowserRouter >
   )
 }
 
